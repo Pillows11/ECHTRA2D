@@ -147,13 +147,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34546146}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.083, y: -0.49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.046390787, y: 0.060529493, z: 0.60659176, w: 0.7913473}
+  m_LocalPosition: {x: 0.062, y: -0.5, z: 0.19}
+  m_LocalScale: {x: 1.4694289, y: 1.8985541, z: 1.0403036}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1189146240}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -8.445, y: 2.29, z: 74.773}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,11 +407,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 7
+  gravityScale: 3
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  groundCheckRadius: 0.2
+    m_Bits: 64
   groundCheck: {fileID: 34546147}
+  groundCheckRadius: 0.2
 --- !u!212 &1189146239
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -507,8 +508,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &1189146242
-CircleCollider2D:
+--- !u!70 &1189146242
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -540,8 +541,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.49999997
+  m_Size: {x: 0.99999994, y: 0.99999994}
+  m_Direction: 0
 --- !u!1 &1914071529
 GameObject:
   m_ObjectHideFlags: 0

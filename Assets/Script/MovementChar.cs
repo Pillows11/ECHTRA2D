@@ -1,39 +1,63 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class TerrariaStyleMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float jumpForce = 7f;
-    private bool isGrounded;
+    public float moveSpeed = 5f;          // Kecepatan gerakan horizontal
+    public float jumpForce = 10f;         // Kekuatan lompat
+    public float gravityScale = 3f;       // Skala gravitasi
+    public LayerMask groundLayer;         // Layer tanah
+    public Transform groundCheck;         // Transform untuk pengecekan tanah
+    public float groundCheckRadius = 0.2f;// Radius pengecekan tanah
+
     private Rigidbody2D rb;
-    public LayerMask groundLayer;
-    public float groundCheckRadius = 0.2f;
-    public Transform groundCheck;
+    private bool isGrounded;
+    private float moveInput;
+    private bool canDoubleJump;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = gravityScale;
 
-        // Pengecekan apakah Rigidbody2D ada di GameObject
-        if (rb == null)
-        {
-            Debug.LogError("No Rigidbody2D found on " + gameObject.name);
-        }
+        rb.freezeRotation = true;
     }
 
     void Update()
     {
-        if (rb != null)
+        moveInput = Input.GetAxisRaw("Horizontal");  // Input horizontal
+
+        // Cek apakah karakter di tanah
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        if (isGrounded)
         {
-            float moveInput = Input.GetAxis("Horizontal");
-            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+            canDoubleJump = true;  // Reset kemampuan double jump saat karakter menyentuh tanah
+        }
 
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-            if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        // Lompat
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (isGrounded)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             }
+            else if (canDoubleJump)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                canDoubleJump = false;
+            }
         }
+    }
+
+    void FixedUpdate()
+    {
+        // Gerakan horizontal dengan smooth
+        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 }
