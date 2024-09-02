@@ -3,7 +3,7 @@ using UnityEngine;
 public class TerrariaStyleMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;          // Kecepatan gerakan horizontal
-    public float jumpForce = 10f;         // Kekuatan lompat
+    public float jumpForce = 20f;         // Kekuatan lompat
     public float gravityScale = 3f;       // Skala gravitasi
     public LayerMask groundLayer;         // Layer tanah
     public Transform groundCheck;         // Transform untuk pengecekan tanah
